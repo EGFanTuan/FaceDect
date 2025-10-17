@@ -1,11 +1,23 @@
 # YOLOv8 Face Detection Project Dependencies
 # Generated for Python 3.8+ environment
 
+# IMPORTANT: Ensure PyTorch wheels are discoverable by pip (Windows/Linux)
+# Using the official PyTorch wheel index (CUDA 12.1 build). This also works on CPU-only machines.
+# For strictly CPU builds, you can override this with:
+#   pip install -r requirements.txt --index-url https://download.pytorch.org/whl/cpu
+--extra-index-url https://download.pytorch.org/whl/cu121
+
 # Core Deep Learning Framework (versions aligned)
-# Note: torchvision 0.20.x pairs with torch 2.5.x; torchaudio 2.5.x as well
-torch>=2.5.1
-torchvision>=0.20.1
-torchaudio>=2.5.1
+# Note: torchvision 0.20.x pairs with torch 2.5.x; torchaudio 2.5.x as well.
+# PyTorch 2.5 requires Python >= 3.9. Provide a Python 3.8 fallback.
+# Python >= 3.9
+torch>=2.5.1; python_version >= "3.9"
+torchvision>=0.20.1; python_version >= "3.9"
+torchaudio>=2.5.1; python_version >= "3.9"
+# Python 3.8 fallback (aligned versions)
+torch==2.2.*; python_version == "3.8"
+torchvision==0.17.*; python_version == "3.8"
+torchaudio==2.2.*; python_version == "3.8"
 
 # Computer Vision
 opencv-python>=4.10.0
@@ -42,5 +54,5 @@ requests>=2.32.3
 pytest>=8.3.3
 
 # GPU Support (if using CUDA)
-# Note: CUDA packages are typically installed via conda or system packages
-# pytorch-cuda>=12.1  # Uncomment if installing via pip instead of conda
+# Note: CUDA runtime/toolkit is not installed via this file. PyTorch wheels with "cu121"
+# include the necessary runtime. Do NOT install "pytorch-cuda" via pip here (conda-only meta pkg).

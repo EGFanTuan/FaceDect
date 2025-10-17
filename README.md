@@ -16,6 +16,17 @@ A lightweight face emotion detection project built on Ultralytics YOLOv8. This r
 pip install -r .\requirements.txt
 ```
 
+PyTorch install notes:
+- If your Python is 3.8, the requirements file pins a compatible torch 2.2.x trio automatically.
+- If your Python is 3.9+, you'll get torch 2.5.x by default using the official PyTorch wheel index.
+- CPU-only: add the CPU index to the command:
+
+```powershell
+pip install -r .\requirements.txt --index-url https://download.pytorch.org/whl/cpu
+```
+
+- CUDA GPUs (Windows/Linux): the default requirements already include the CUDA 12.1 extra index, so pip will resolve cu121 wheels automatically. Ensure your NVIDIA driver supports CUDA 12.x. If you prefer CPU, use the CPU command above.
+
 - (Optional) Verify your environment:
 
 ```powershell
@@ -145,6 +156,13 @@ python .\detect.py --model .\emotion_detection\train_v1\weights\best.pt
 | OpenCV cannot open camera | Wrong camera id or permission | Try --cam-id 0/1; close other apps; check drivers |
 | Video writer failed | Codec/permission/path issues | Ensure output folder exists; try different output path/filename |
 | PyTorch/CUDA mismatch | Torch installed without matching CUDA | Reinstall torch for your CUDA, or use CPU device |
+
+### PyTorch install errors (no matching distribution found)
+
+Typical causes and fixes:
+- Python too old/new for the pinned torch: use Python 3.8–3.12. For 3.8, we auto-pin torch==2.2.*; for 3.9+ torch>=2.5.1.
+- Platform-specific wheel index missing: our requirements add the official PyTorch index for CUDA 12.1. For CPU-only install, use the CPU index command shown above.
+- Corporate mirror/proxy stripping extra-index: re-run with the explicit index-url flag or set PIP_EXTRA_INDEX_URL accordingly.
 
 ## FAQ
 

@@ -16,6 +16,17 @@
 pip install -r .\requirements.txt
 ```
 
+PyTorch 安装注意：
+- 若你的 Python 为 3.8，本项目会自动为你固定兼容的 torch 2.2.x/torchvision 0.17.x/torchaudio 2.2.x。
+- 若你的 Python 为 3.9 及以上，将默认安装 torch 2.5.x 家族（通过官方 PyTorch 轮子索引）。
+- 仅使用 CPU 时，建议使用 CPU 索引安装（避免下载带 CUDA 的轮子）：
+
+```powershell
+pip install -r .\requirements.txt --index-url https://download.pytorch.org/whl/cpu
+```
+
+- 使用 NVIDIA GPU（Windows/Linux）：默认 requirements 已包含 CUDA 12.1 的官方额外索引，pip 会自动解析 cu121 轮子。请确保显卡驱动支持 CUDA 12.x。如需强制 CPU，请使用上面的 CPU 命令。
+
 - （可选）环境检测：
 
 ```powershell
@@ -145,6 +156,13 @@ python .\detect.py --model .\emotion_detection\train_v1\weights\best.pt
 | OpenCV 无法打开摄像头 | 摄像头 ID 错误或权限占用 | 尝试 --cam-id 0/1；关闭占用摄像头的程序；检查驱动 |
 | 视频写入失败 | 编码器/权限/路径问题 | 确保输出目录存在；更换输出文件名或路径 |
 | PyTorch/CUDA 不匹配 | 安装了不匹配的 CUDA 版本 | 安装与 CUDA 匹配的 torch，或改用 CPU |
+
+### PyTorch 安装报错（找不到符合要求的版本）
+
+常见原因与处理：
+- Python 版本不匹配：请使用 Python 3.8–3.12。对于 3.8，我们已固定 torch==2.2.*；对于 3.9+ 默认使用 torch>=2.5.1。
+- 未使用官方轮子索引：本项目在 requirements 中加入了 CUDA 12.1 的官方索引。仅 CPU 环境请使用上面的 CPU 索引命令。
+- 公司内网/镜像劫持了额外索引：请显式加 --index-url 或配置 PIP_EXTRA_INDEX_URL。
 
 ## FAQ
 
