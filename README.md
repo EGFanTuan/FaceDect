@@ -150,10 +150,10 @@ python .\detect.py --model .\emotion_detection\train_v1\weights\best.pt
 
 ### What are the default training settings and expected performance?
 
-- Dataset: current packaged dataset is a quarter of the original, with about ~27,000 training items.
+- Dataset: ~~current packaged dataset is a quarter of the original, with about 27,000 training items.~~ Release no longer includes datasets; please download datasets yourself using the `download` field or links in `datasets/emotion_dataset.yaml` and place them under `./datasets` per the YAML structure.
 - Reference machine: Ryzen 7 7735H + RTX 4060 Laptop + 32 GB RAM.
 - Caching: default uses disk caching; using in-RAM caching (or disabling cache) may cause OOM on 32 GB RAM. If you hit OOM, consider shrinking the dataset further or using the quick preset.
-- Runtime: 40 epochs take about ~5 hours on the reference machine.
+- Runtime: Using 25% of the original dataset, 40 epochs take about ~5 hours on the reference machine.
 
 Tips to adapt to your machine:
 - Use presets to start: --config-preset quick for limited resources, high-quality for longer training.
