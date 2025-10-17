@@ -151,7 +151,7 @@ python .\detect.py --model .\emotion_detection\train_v1\weights\best.pt
 ### 训练默认配置与性能说明
 
 - 数据集：~~当前提供的数据集为原始数据集的 1/4，约 27,000 个训练样本~~ Release 不再包含数据集，请根据 `datasets/emotion_dataset.yaml` 中的 `download` 字段或链接自行下载数据集，并按 YAML 结构放置到 `./datasets` 下。
-- 参考硬件：7735H + RTX 4060 Laptop + 32 GB RAM。
+- 参考硬件：Ryzen7 7735H + RTX 4060 Laptop + 32 GB RAM。
 - 缓存策略：默认使用磁盘缓存；若改为内存缓存（或关闭缓存）可能导致 32 GB 内存不足。如遇 OOM，建议进一步缩小数据集或使用 quick 预设。
 - 参考耗时：在以上环境下使用原数据集的25%，40 个 epoch 训练约需 5 小时。
 
