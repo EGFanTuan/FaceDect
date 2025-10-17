@@ -1,0 +1,21 @@
+# Emotion Detection Dataset
+path: ./datasets_subset_0.5  # dataset root dir
+train: train/images  # train images (relative to 'path')
+val: val/images    # val images (relative to 'path')
+test: test/images  # test images (relative to 'path')
+
+# Number of classes
+nc: 7  # number of classes
+
+# Class names
+names: 
+  0: angry
+  1: disgust
+  2: fear
+  3: happy
+  4: neutral
+  5: sad
+  6: surprise
+
+# Download script/URL (optional)
+# download: https://ultralytics.com/assets/coco128.zip

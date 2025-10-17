@@ -1,0 +1,7 @@
+datasets/test/
+datasets/train/
+datasets/val/
+emotion_detection/train_v1/weights/epoch10.pt
+emotion_detection/train_v1/weights/epoch20.pt
+emotion_detection/train_v1/weights/epoch30.pt
+emotion_detection/train_v1/weights/last.pt
