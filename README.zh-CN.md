@@ -1,3 +1,5 @@
+[中文](README.zh-CN.md) | [English](README.md)
+
 # 人脸情绪检测 (YOLOv8)
 
 基于 Ultralytics YOLOv8 的轻量级人脸情绪检测项目。仓库包含训练与推理脚本，并提供环境检测脚本，帮助你快速开始。

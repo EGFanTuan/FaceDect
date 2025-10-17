@@ -1,3 +1,5 @@
+[中文](README.zh-CN.md) | [English](README.md)
+
 # Face Emotion Detection (YOLOv8)
 
 A lightweight face emotion detection project built on Ultralytics YOLOv8. This repository includes training and inference scripts, along with a simple environment check to help you get started fast.
