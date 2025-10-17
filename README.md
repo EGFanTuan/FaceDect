@@ -4,7 +4,7 @@
 
 A lightweight face emotion detection project built on Ultralytics YOLOv8. This repository includes training and inference scripts, along with a simple environment check to help you get started fast.
 
-> Note on data and weights: To keep the repo small, datasets and intermediate model checkpoints are not tracked by git (ignored via .gitignore). We publish a full bundle (including dataset and all trained models) in the Releases section. If you download the Release bundle, you can run inference out of the box. If you cloned the source-only repository, you will need to provide dataset/weights yourself as described below.
+> Note on data and weights: To keep the repo small, datasets and intermediate model checkpoints are not tracked by git (ignored via .gitignore). Datasets are NOT shipped in Releases. Please download datasets yourself using the links/scripts referenced in the YAML files under `./datasets/*.yaml`. Some Releases may provide trained model weights to help you run inference quickly; otherwise, specify your own weights.
 
 ## Requirements
 
@@ -53,8 +53,8 @@ For more runtime options (confidence, device, image size, etc.), see `DETECT_USA
 ### 2) Training
 
 If you need to train:
-- Download the dataset (see `datasets/emotion_dataset.yaml` for structure) and place it under `./datasets`.
-- Optionally, download intermediate model checkpoints from Release if you want to resume training.
+- Download the dataset yourself. Open `datasets/emotion_dataset.yaml` (or your dataset YAML) and follow the `download` field or linked script/URL to fetch the data. Place the dataset under `./datasets` matching the YAML structure (`train/val/test` with `images/labels`).
+- Optionally, download trained weights from Releases (if available) to resume training or for warm starts.
 
 Run training with presets:
 ```powershell
@@ -69,6 +69,18 @@ python .\train.py --config-preset high-quality
 ```
 
 Training artifacts are saved under `runs/detect/<experiment>/weights/` (e.g., `best.pt`, `last.pt`). For detailed configuration (batch size, epochs, device, optimizer, etc.), see `CONFIG_USAGE.md`.
+
+Dataset too large? Use subset training to fit your resources:
+```powershell
+# Use 25% of the dataset (first N files)
+python .\train.py --use-subset --subset-ratio 0.25 --subset-method first
+
+# Use 30% with stratified sampling
+python .\train.py --use-subset --subset-ratio 0.3 --subset-method stratified
+
+# Quick preset already uses a subset by default
+python .\train.py --config-preset quick
+```
 
 ## More Configuration
 
@@ -103,11 +115,11 @@ python .\ccache.py -v
 
 ## Releases and Assets
 
-- Full bundles with dataset and all trained models are available in the Releases section.
-- If you download a Release bundle, you can start inference immediately without extra setup.
-- If you clone this repository only, you must:
-  - Provide trained weights at one of the expected locations or via `--model`.
-  - Provide the dataset under `./datasets` if you plan to train.
+- Datasets are NOT included in Releases. Download datasets via the `download` references in `./datasets/*.yaml`.
+- Some Releases may provide trained model weights; if available, you can start inference faster.
+- If you clone this repository, you must:
+  - Provide trained weights at one of the expected locations or via `--model` for inference.
+  - Download and place the dataset under `./datasets` (per YAML) if you plan to train.
 
 ## Troubleshooting
 

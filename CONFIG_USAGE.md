@@ -129,3 +129,12 @@ python train.py --config-preset memory-efficient
 2. Copies sampled images and labels to subset directory
 3. Generates new YAML configuration for subset
 4. Trains on the subset dataset
+
+## Dataset Download via YAML
+
+Datasets are not bundled with the repository. To obtain data:
+
+1. Open your dataset YAML under `./datasets/` (e.g., `datasets/emotion_dataset.yaml`).
+2. Follow the `download` field (URL or script) to fetch the dataset.
+3. Place it under `./datasets` following the YAML structure (`train/val/test` with `images/labels`).
+4. If the dataset is still too large, use the subset options above to create a smaller training set.

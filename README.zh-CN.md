@@ -4,7 +4,7 @@
 
 基于 Ultralytics YOLOv8 的轻量级人脸情绪检测项目。仓库包含训练与推理脚本，并提供环境检测脚本，帮助你快速开始。
 
-> 关于数据与权重：为避免仓库体积过大，数据集与训练过程中的中间模型均被 .gitignore 忽略，不随源码一起提交。我们会在 Release 中发布包含数据集与所有模型的完整打包版本。若下载 Release 包，你可以开箱即用进行推理。若仅克隆源码仓库，则需要按下文说明自行准备数据集/权重。
+> 关于数据与权重：为避免仓库体积过大，数据集与训练过程中的中间模型均被 .gitignore 忽略，不随源码一起提交。Release 不再包含数据集。请根据 `./datasets/*.yaml` 中的 `download` 字段或相关链接自行下载数据集，并按 YAML 中的目录结构（`train/val/test` 与 `images/labels`）放置到 `./datasets` 下。部分 Release 可能提供已训练的模型权重，便于快速推理；如无则需自行提供权重。
 
 ## 环境要求
 
@@ -53,8 +53,8 @@ python .\detect.py --camera --cam-id 0 --show --save-out .\output\camera_out.mp4
 ### 2）训练
 
 如果需要训练：
-- 下载并放置数据集（可参考 `datasets/emotion_dataset.yaml` 的目录结构）到 `./datasets`。
-- 如需从中断处继续或使用已有权重，可从 Release 下载中间模型（权重）。
+- 请自行下载数据集。打开 `datasets/emotion_dataset.yaml`（或你的数据集 YAML），根据其中的 `download` 字段或链接下载数据，并按 YAML 结构放置到 `./datasets` 目录。
+- 如需从中断处继续或使用已有模型，可从 Release 下载训练权重（若有提供）。
 
 使用预设启动训练：
 ```powershell
@@ -69,6 +69,18 @@ python .\train.py --config-preset high-quality
 ```
 
 训练产物输出在 `runs/detect/<experiment>/weights/`（如 `best.pt`、`last.pt`）。若需详细配置（batch、epochs、device、optimizer 等），请查看 `CONFIG_USAGE.md`。
+
+数据过大？可以使用子集训练以适配你的资源：
+```powershell
+# 使用前 25% 的数据
+python .\train.py --use-subset --subset-ratio 0.25 --subset-method first
+
+# 使用 30% 且保持类别分布
+python .\train.py --use-subset --subset-ratio 0.3 --subset-method stratified
+
+# quick 预设默认会使用子集
+python .\train.py --config-preset quick
+```
 
 ## 配置与文档
 
@@ -103,11 +115,11 @@ python .\ccache.py -v
 
 ## Release 与资源
 
-- Release 中提供包含数据集与所有训练模型的完整打包版本。
-- 下载 Release 包后，可直接进行推理，无需额外准备。
+- Release 不包含数据集。请根据 `./datasets/*.yaml` 中的 `download` 说明下载数据集。
+- 部分 Release 可能提供已训练权重；如有，可加速你的推理或用于继续训练。
 - 若仅克隆源码仓库，你需要：
   - 在默认路径放置已训练好的权重，或通过 `--model` 指定权重文件；
-  - 若要训练，则需在 `./datasets` 下提供数据集。
+  - 若要训练，则需按 YAML 说明下载并放置数据集到 `./datasets`。
 
 ## 常见问题
 
