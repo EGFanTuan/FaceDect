@@ -1,13 +1,16 @@
 # YOLOv8 Face Detection Project Dependencies
 # Generated for Python 3.8+ environment
 
-# Core Deep Learning Framework
-torch>=2.4.1
-torchvision>=0.20.0
-torchaudio>=2.4.1
+# Core Deep Learning Framework (versions aligned)
+# Note: torchvision 0.20.x pairs with torch 2.5.x; torchaudio 2.5.x as well
+torch>=2.5.1
+torchvision>=0.20.1
+torchaudio>=2.5.1
 
 # Computer Vision
 opencv-python>=4.10.0
+# If you rely on the vendored `ultralytics/` in this repo, this dependency is optional.
+# Keeping it here is generally safe, but you can remove it to avoid potential conflicts.
 ultralytics>=8.1.0
 
 # Scientific Computing
@@ -32,8 +35,8 @@ tqdm>=4.66.5
 pyyaml>=6.0.2
 requests>=2.32.3
 
-# Configuration and Data Classes
-dataclasses; python_version < "3.7"  # Built-in for Python 3.7+
+# # Configuration and Data Classes
+# dataclasses; python_version < "3.7"  # Built-in for Python 3.7+
 
 # Development and Testing (optional)
 pytest>=8.3.3
